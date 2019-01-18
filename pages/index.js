@@ -16,13 +16,15 @@ const pbkdf2 = util.promisify(crypto.pbkdf2);
 
 Index.getInitialProps = async function() {
   const data = [ Date.now() ]
-  const secret = await pbkdf2('secret', 'salt', 100000, 64, 'sha512')
+
+  const factor = Date.now() / 10000 % 1 > 0.5 ? 1000 : 10000
+  const secret = await pbkdf2('secret', 'salt', factor, 64, 'sha512')
 
   console.log(`Show data fetched. Count: ${data.length}`)
 
   return {
     time: data,
-    hash: secret.toString('hex')
+    hash: secret
   }
 }
 

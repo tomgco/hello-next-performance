@@ -19,9 +19,10 @@ function getTable() {
   return table
 }
 
+const table = getTable()
+
 Index.getInitialProps = async function() {
   const data = [ Date.now() ]
-  const table = getTable()
 
   const factor = Date.now() / 10000 % 1 > 0.5 ? 1000 : 10000
 

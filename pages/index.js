@@ -11,15 +11,19 @@ const Index = (props) => (
   </div>
 )
 
-Index.getInitialProps = async function() {
-  const data = [ Date.now() ]
+function getTable() {
   const table = []
-
-  const factor = Date.now() / 10000 % 1 > 0.5 ? 1000 : 10000
-
-  for (let i = 0; i < 1e6; i++) {
+  for (let i = 0; i < 1e4; i++) {
     table.push(`Welcome to row ${i}`)
   }
+  return table
+}
+
+Index.getInitialProps = async function() {
+  const data = [ Date.now() ]
+  const table = getTable()
+
+  const factor = Date.now() / 10000 % 1 > 0.5 ? 1000 : 10000
 
   return {
     time: data,
